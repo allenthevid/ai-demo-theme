@@ -1,0 +1,20 @@
+{
+  "name": "hero-section",
+  "title": "Hero Section",
+  "viewScript": [
+    "file:./script.js"
+  ],
+  "viewStyle": [],
+  "supports": {
+    "align": [
+      "full"
+    ]
+  },
+  "acf": {
+    "mode": "edit",
+    "renderTemplate": "./controller.php",
+    "postTypes": [
+      "page"
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "key": "group_hero_section",
+  "title": "Hero Section Fields",
+  "fields": [
+    {
+      "key": "field_hero_section_block",
+      "label": "Block",
+      "name": "block",
+      "type": "group",
+      "instructions": "",
+      "required": 0,
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_hero_section_heading",
+          "label": "Heading",
+          "name": "heading",
+          "type": "text",
+          "instructions": "Main heading text",
+          "required": 0,
+          "default_value": "Get More Done with whitepace"
+        },
+        {
+          "key": "field_hero_section_subheading",
+          "label": "Subheading",
+          "name": "subheading",
+          "type": "textarea",
+          "instructions": "Subheading description",
+          "required": 0,
+          "default_value": "Project management software that enables your teams to collaborate, plan, analyze and manage everyday tasks"
+        },
+        {
+          "key": "field_hero_section_button_text",
+          "label": "Button Text",
+          "name": "button_text",
+          "type": "text",
+          "instructions": "Text for the CTA button",
+          "required": 0,
+          "default_value": "Try Whitepace free"
+        },
+        {
+          "key": "field_hero_section_button_link",
+          "label": "Button Link",
+          "name": "button_link",
+          "type": "link",
+          "instructions": "URL for the button",
+          "required": 0,
+          "default_value": "",
+          "return_format": "array"
+        },
+        {
+          "key": "field_hero_section_content_image",
+          "label": "Content Image",
+          "name": "content_image",
+          "type": "image",
+          "instructions": "Primary content image (fallback background #C4DEFD)",
+          "required": 0,
+          "default_value": ""
+        },
+        {
+          "key": "field_hero_section_decoration_image",
+          "label": "Decorative Background",
+          "name": "decoration_image",
+          "type": "image",
+          "instructions": "Optional decorative SVG/PNG (exported from Figma groups)",
+          "required": 0,
+          "default_value": ""
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "block",
+        "operator": "==",
+        "value": "acf/hero-section"
+      }
+    ]
+  ],
+  "active": true
+}
