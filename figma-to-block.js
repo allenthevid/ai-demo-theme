@@ -353,6 +353,54 @@ function extractSection(fileData, sectionName) {
 
 // ─── Step 2: AI interpretation ────────────────────────────────────────
 
+function safeJsonParse(text, label) {
+  // Strip markdown code fences if present
+  let cleaned = text.trim();
+  cleaned = cleaned.replace(/^```(?:json|js|javascript)?\s*\n?/i, "");
+  cleaned = cleaned.replace(/\n?```\s*$/, "");
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (e) {
+    const errPos = parseInt(e.message.match(/position (\d+)/)?.[1]) || 0;
+    console.error(`\n   JSON parse error in ${label}: ${e.message}`);
+    console.error(`   Around error (position ${errPos}):`);
+    console.error(`   ...${cleaned.slice(Math.max(0, errPos - 80), errPos + 120)}...\n`);
+
+    // Try common LLM JSON fixes
+    let fixed = cleaned.trim();
+
+    // Fix 1: Missing commas between adjacent objects in arrays
+    // Handles: "}\n{" , "}\n\n{" , "}  \n  {" , "]  \n  {"
+    fixed = fixed.replace(/\}[ \t]*\n[ \t]*\n?[ \t]*\{/g, "},\n{");
+    fixed = fixed.replace(/\][ \t]*\n[ \t]*\n?[ \t]*\{/g, "],\n{");
+    fixed = fixed.replace(/\}[ \t]*\n[ \t]*\n?[ \t]*\]/g, "}\n]");
+    fixed = fixed.replace(/\}[ \t]*\n[ \t]*\n?[ \t]*"/g, "},\n\"");
+
+    // Fix 2: Trailing comma before closing bracket/brace
+    fixed = fixed.replace(/,(\s*[}\]])/g, "$1");
+
+    // Fix 3: Missing comma between string values in array
+    fixed = fixed.replace(/\"[ \t]*\n[ \t]*\n?[ \t]*\"/g, '",\n"');
+
+    // Fix 4: Missing comma between number/boolean and next element
+    fixed = fixed.replace(/(\d|true|false)\s*\n\s*\{/g, "$1,\n{");
+    fixed = fixed.replace(/(\d|true|false)\s*\n\s*\"/g, "$1,\n\"");
+
+    // Fix 5: Single quotes used instead of double quotes (common LLM mistake on values)
+    // Only fix values, not keys — keys are usually fine
+    fixed = fixed.replace(/:\s*'([^']*)'/g, ': "$1"');
+
+    try {
+      const result = JSON.parse(fixed);
+      console.error(`   ✓ Auto-fixed JSON, proceeding.\n`);
+      return result;
+    } catch (e2) {
+      throw new Error(`Failed to parse ${label} even after repair: ${e2.message}\nContext: ${cleaned.slice(Math.max(0, errPos - 100), errPos + 200)}`);
+    }
+  }
+}
+
 function buildPrompt(summary) {
   return `You are a WordPress block generator for a theme that uses:
 - Timber/Twig templating
@@ -380,7 +428,7 @@ Match Figma colors to the closest theme color. If no close match exists, use an 
 FIGMA SECTION DATA:
 ${JSON.stringify(summary, null, 2)}
 
-Based on this Figma section, output using this EXACT format:
+Based on this Figma section, output using this EXACT format with NO extra text before or after:
 
 ===META===
 {
@@ -402,21 +450,29 @@ Based on this Figma section, output using this EXACT format:
 <full twig template here — no escaping needed>
 ===END===
 
-Rules:
+CRITICAL RULES:
+- You MUST output ===META=== and ===TEMPLATE=== and ===END=== delimiters exactly as shown
+- META section MUST be strictly valid JSON — double-check every comma between array elements
+- NEVER wrap the META JSON in markdown code fences (\`\`\`)
+- NEVER add text before ===META=== or after ===END===
 - blockName: lowercase, dashes only
-- The META section must be valid JSON on its own
 - The TEMPLATE section is raw Twig — no JSON escaping needed, just write the template directly
-- Template MUST start with {% cache ... %} and end with {% endcache %}
-- Use <section>, container div, section-anchor pattern
-- PADDING: Use EXACT layout.paddingTop/paddingBottom from Figma data as py-[Npx] on SECTION
-- Container handles horizontal padding — never add px-[Npx] to section/container
-- CTA: MUST include no-underline class. Use fixed px values from buttonFrames data
-- FONT: Use font-inter only (not font-ibm-plex-sans or font-lt-museum)
+- Template MUST use this EXACT cache line: {% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+- Template MUST end with {% endcache %}
+- NEVER use a static cache key like {% cache 'block-name' %}
+- Use <section>, container class (NOT max-w-[1342px] mx-auto px-[Npx]), section-anchor pattern
+- PADDING: Use py-16 lg:py-[140px] on the section for responsive vertical spacing
+- NEVER add px-[Npx] to the section or to the inner content wrapper — the container class handles that
+- BUTTONS: ALWAYS use an <a> tag (not <span> or <button>). href defaults to '#' if no link set. ALWAYS include no-underline class
+- Use theme color names where possible: bg-secondary (not bg-[#043873]), bg-primary, etc. Only use arbitrary bg-[#xxx] for colors not in the theme
+- FONT: Use font-inter on every text element. Never use font-ibm-plex-sans or font-lt-museum
+- DEFAULTS: Every text field MUST have a |default('...') fallback so nothing renders empty
+- IMAGE CONTAINER: Use w-full aspect-[W/H] for responsive sizing, never hardcoded w-[824px] h-[549px]
+- Use get_image() for images (NOT TimberImage or Image)
 - SECTION BACKGROUND: sectionBackground → optional ACF image + CSS fallback
 - CONTENT IMAGE: placeholderContainers[] → ACF image + colored div fallback matching Figma bounds
-- DECORATIVE: decorGroups[] → optional ACF image, absolute positioned at z-0 with pointer-events-none. These must NEVER cover text or CTA. Position them BEHIND all content — use z-[1] max, and put content at z-10 or higher.
+- DECORATIVE: decorGroups[] → optional ACF image, absolute positioned at z-0 with pointer-events-none. These must NEVER cover text or CTA. Position them BEHIND all content — use z-[1] max, and put content at z-10 or higher
 - Include EVERY text node, placeholder, and button from the data
-- Use TimberImage() for image URLs
 - No ob_start, ob_get_clean, echo, or include in Twig`;
 }
 
@@ -457,7 +513,7 @@ async function callAI(prompt) {
         Authorization: `Bearer ${DEEPSEEK_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "deepseek-chat",
+        model: "deepseek-v4-flash",
         max_tokens: 4096,
         messages: [{ role: "user", content: prompt }],
       }),
@@ -465,7 +521,8 @@ async function callAI(prompt) {
 
     if (!res.ok) throw new Error(`DeepSeek API error: ${res.status} ${await res.text()}`);
     const data = await res.json();
-    text = data.choices[0].message.content;
+    // DeepSeek v4 Pro may return reasoning_content in addition to content
+    text = data.choices[0].message.content || data.choices[0].message.reasoning_content || "";
   }
 
   // Parse delimiter-based format: ===META=== {json} ===TEMPLATE=== {twig} ===END===
@@ -475,10 +532,10 @@ async function callAI(prompt) {
     // Fallback: try old JSON-only format
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error("No valid output format found in AI response");
-    return JSON.parse(jsonMatch[0]);
+    return safeJsonParse(jsonMatch[0], "AI response");
   }
 
-  const schema = JSON.parse(metaMatch[1].trim());
+  const schema = safeJsonParse(metaMatch[1].trim(), "===META=== section");
 
   // Extract template: everything between ===TEMPLATE=== and ===END=== (or end of text)
   const afterTemplate = text.slice(text.indexOf('===TEMPLATE===') + '===TEMPLATE==='.length);
@@ -548,7 +605,7 @@ Timber::render("./template.twig", $context);
 
     <div class="container">
         <div class="pt-[60px] pb-[60px] lg:pt-[100px] lg:pb-[100px]">
-            {# Add content here #}
+
         </div>
     </div>
 </section>
@@ -813,8 +870,11 @@ async function interactive() {
     {% if block.anchor %}
         <div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
     {% endif %}
-    <div class="container pt-[60px] pb-[60px] lg:pt-[100px] lg:pb-[100px]">
-        {# AI step skipped — add ACF fields and re-run with ANTHROPIC_API_KEY set #}
+
+    <div class="container">
+        <div class="pt-[60px] pb-[60px] lg:pt-[100px] lg:pb-[100px]">
+
+        </div>
     </div>
 </section>
 
