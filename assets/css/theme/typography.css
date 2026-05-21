@@ -1,0 +1,60 @@
+@layer base {
+    h1,
+    .h1 {
+        @apply font-inter font-bold ~text-[2.5rem]/[4rem] leading-tight mb-[20px] last:mb-0;
+    }
+
+    h2,
+    .h2 {
+        @apply font-inter font-bold ~text-[1.875rem]/[3rem] leading-tight mb-[20px] last:mb-0;
+    }
+
+    h3,
+    .h3 {
+        @apply font-inter font-semibold text-[1.875rem] leading-snug mb-[20px] last:mb-0;
+    }
+
+    h4,
+    .h4 {
+        @apply font-inter font-semibold text-[22px] leading-snug mb-[20px] last:mb-0;
+    }
+
+    h5,
+    .h5 {
+        @apply font-inter font-semibold text-[20px] leading-snug mb-[20px] last:mb-0;
+    }
+
+    h6,
+    .h6 {
+        @apply font-inter font-semibold text-[18px] leading-snug mb-[20px] last:mb-0;
+    }
+
+    b,
+    strong {
+        @apply font-bold;
+    }
+
+    p {
+        @apply font-inter mb-[20px] last:mb-0 leading-relaxed;
+    }
+
+    ul {
+        @apply list-disc pl-[30px] mb-[20px] last:mb-0;
+    }
+
+    ul li {
+        @apply font-inter text-[16px] leading-relaxed;
+    }
+
+    ol {
+        @apply list-decimal pl-[30px] mb-[20px] last:mb-0;
+    }
+
+    a {
+        @apply font-inter underline;
+    }
+
+    button {
+        @apply font-inter;
+    }
+}

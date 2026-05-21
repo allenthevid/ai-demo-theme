@@ -1,0 +1,34 @@
+{% if pagination.pages|length > 1 %}
+    <div class="pagination flex items-center justify-center gap-[12px]">
+        
+        {# PREVIOUS BUTTON #}
+        {% if pagination.prev %}
+            {# We simply subtract 1 from the current page #}
+            <a href="#" data-page="{{ current_page - 1 }}" class="pagination-btn {{ text_class }} px-[16px] py-[8px] hover:text-tertiary transition-colors">
+                Previous
+            </a>
+        {% endif %}
+
+        {# PAGE NUMBERS #}
+        {% for page in pagination.pages %}
+            {# 
+               Timber automatically sets page.current based on the PHP fix we just made.
+               We use page.title (which is the number) for the data-page attribute.
+            #}
+            <a href="#" 
+               data-page="{{ page.title }}" 
+               class="pagination-number {{ page.current ? 'border border-[#000000] ' ~ text_class : text_class }} w-[36px] h-[36px] flex items-center justify-center rounded-full hover:border hover:text-[#000] hover:border-[#000000] transition-colors">
+                {{ page.title }}
+            </a>
+        {% endfor %}
+
+        {# NEXT BUTTON #}
+        {% if pagination.next %}
+            {# We simply add 1 to the current page #}
+            <a href="#" data-page="{{ current_page + 1 }}" class="pagination-btn {{ text_class }} px-[16px] py-[8px] hover:text-tertiary transition-colors">
+                Next
+            </a>
+        {% endif %}
+        
+    </div>
+{% endif %}

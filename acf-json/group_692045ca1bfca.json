@@ -1,0 +1,45 @@
+{
+    "key": "group_692045ca1bfca",
+    "title": "Global Background",
+    "fields": [
+        {
+            "key": "field_692045ca84322",
+            "label": "Background Color",
+            "name": "background_color",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Please ensure that this changes only the background and text colors, not the CTAs.",
+            "default_value": 0,
+            "ui_on_text": "White",
+            "ui_off_text": "Dark",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": false,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1763726059
+}

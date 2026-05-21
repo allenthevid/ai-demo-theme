@@ -1,0 +1,160 @@
+<section class="single-post bg-white pt-[120px] lg:pt-[202px] relative">
+    {# Single Post Layout #}
+
+   
+    <div class="container ">
+        <div class="inner-wrapper ">
+            <div class="top-wrapper flex items-center mb-[19px] gap-[19px] text-secondary justify-start lg:justify-center">
+                {# Categories #}
+                {% for category in post.categories %}
+                    <p class="category medium mb-0">{{ category.name }}</p>
+                    {% if not loop.last or post.date %}
+                        <span class="bullet-dot relative inline-flex items-center">
+                            <span class="w-[7px] h-[7px] bg-tertiary rounded-full"></span>
+                        </span>
+                    {% endif %}
+                {% endfor %}
+                
+                {# Date #}
+                {% if post.date %}
+                    <p class="date medium mb-0">{{ post.date|date("M j, Y") }}</p>
+                {% endif %}
+            </div>
+            <div clss="flex flex-col gap-y-[19px]">
+            <h1 class="h2 post-title text-left lg:text-center m">{{ post.title }}</h1>
+            {% if post.meta('author') %}
+            <p class="category medium mb-0 text-center">By {{ post.meta('author') }}</p>
+            {% endif %}
+            </div>
+            <div class="featured-image-wrapper">
+                {% if post.thumbnail %}
+                    {% include 'components/image.twig' with {
+                        'image': post.thumbnail.id,
+                        'class': "w-full h-[293px] lg:h-[475px] object-cover rounded-[16px] my-[40px] lg:my-[55px]",
+                    } %}
+                {% else %}
+                    <div class="placeholder-image w-full h-[293px] lg:h-[475px] bg-gray-200 rounded-[16px] my-[40px] lg:my-[55px] flex items-center justify-center">
+                        <svg class="w-20 h-20 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="post-content-wrapper xl:px-[81px] xl:[&_p:has(img)]:-mx-[81px]">{{ post.content }}</div>
+        </div>
+        
+        {# Related Posts Section #}
+        {% if related_posts %}
+            <div class="related-post pt-[40px] lg:pt-[136px]">
+                <div class="top-wrapper flex items-center justify-between mb-[20px]">
+                    <h3 class="">Other people also viewed</h3>
+                    <div class="cta"><a href="/blog" class="btn btn-dark_transparent">READ ALL ARTICLES</a></div>
+                </div>
+                
+                <div class="posts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[30px]">
+                    {% for related_post in related_posts %}
+                        <article class="post-card group bg-[#F3EEDD] rounded-[16px] border border-[#031E361A] flex flex-col shadow-[0_6px_12px_0_rgba(0,0,0,0.03)] h-full transition-transform transform">
+                            <a href="{{ related_post.link }}" class="max-h-[209px]">
+                                <div class="post-thumbnail w-full h-[209px] overflow-hidden">
+                                    {% if related_post.thumbnail %}
+                                        <img src="{{ related_post.thumbnail.src }}" alt="{{ related_post.title }}" class="rounded-t-[16px] w-full h-full object-cover transition-transform duration-300">
+                                    {% else %}
+                                        <div class="w-full h-full bg-gray-300 flex items-center justify-center rounded-t-[16px]">
+                                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </a>
+
+                            <div class="content px-[24px] py-[39.5px] flex flex-col gap-[12px] grow">
+                                {% if related_post.terms('category') %}
+                                    <a href="{{ related_post.terms('category')[0].link }}" class="post-category text-[12px] uppercase tracking-wider font-bold text-secondary mb-[12px] hover:text-tertiary transition-colors">
+                                        {{ related_post.terms('category')[0].name }}
+                                    </a>
+                                {% endif %}
+
+                                <a href="{{ related_post.link }}">
+                                    <h3 class="post-title text-secondary text-[20px] lg:text-[24px] font-bold leading-[130%] mb-[12px] hover:text-tertiary transition-colors">
+                                        {{ related_post.title }}
+                                    </h3>
+                                </a>
+
+                                {% if related_post.preview %}
+                                    <div class="post-excerpt text-secondary [&_p]:text-medium text-[#0000008C] leading-[135%] mb-[16px] grow">
+                                        {{ related_post.preview.read_more(false)|striptags|truncate(12, true, '...') }}
+                                    </div>
+                                {% endif %}
+
+                                <div class="read-more inline-flex items-center gap-[8px] text-secondary text-[14px] font-medium group-hover:gap-[12px] transition-all">
+                                    <a href="{{ related_post.link }}" class="post-link text-[#000000] text-medium flex">
+                                        Read Full Article →
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+<section class="cta-section relative bg-white overflow-hidden pt-[80px] lg:pt-[136px] pb-[273px] lg:pb-[207px]">
+    {# Floating Image Background #}
+    {% if floating_image %}
+        <div class="absolute left-0 right-0 bottom-[-50%] w-full h-full z-0 pointer-events-none bottom-glow">
+            {% set floating_image = Image(floating_image) %}
+            <img src="{{ floating_image.src }}" alt="{{ floating_image.alt }}" class="w-full h-full object-fill">
+        </div>
+    {% endif %}
+    <div class="container relative z-10">
+        {# CTA Section #}
+        {% if cta_image or cta_heading or cta_description or cta %}
+            <div class="cta-section">
+                <div class="">
+                    <div class="content-wrapper max-w-[800px] mx-auto text-center px-[30px]">
+                        {# Image #}
+                        {% if cta_image %}
+                            <div class="image-wrapper mb-[32px] flex justify-center">
+                                {% include 'components/image.twig' with {
+                                    'image': cta_image,
+                                    'class': "max-w-[200px] lg:max-w-[231px] w-full h-auto object-contain",
+                                    'size': [300, 300],
+                                } %}
+                            </div>
+                        {% endif %}
+
+                        {# Heading #}
+                        {% if cta_heading.heading %}
+                            {% include 'components/heading.twig' with {
+                                'class': 'main-title text-secondary mb-[20px]',
+                                'value': cta_heading.heading.value, 
+                                'type': cta_heading.heading.type != "default" ? cta_heading.type : "h2",
+                                'has_custom_style': cta_heading.has_custom_style,
+                                'style': cta_heading.style,
+                            } %}
+                        {% endif %}
+
+                        {# Description #}
+                        {% if cta_description.paragraph %}
+                            <div class="description text-secondary text-medium mb-[47px] leading-[135%]">
+                                {{ cta_description.paragraph }}
+                            </div>
+                        {% endif %}
+
+                        {# CTA #}
+                        {% if cta %}
+                            {% set cta_style = cta_type.bg ? 'btn-' ~ cta_type.bg : 'btn-tertiary' %}
+                            {% include 'components/cta.twig' with {
+                                'class': cta_style,
+                                'cta': cta.cta, 
+                                'icon': false,
+                            } %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>

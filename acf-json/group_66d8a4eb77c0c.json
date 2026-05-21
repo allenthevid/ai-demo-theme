@@ -1,0 +1,87 @@
+{
+    "key": "group_66d8a4eb77c0c",
+    "title": "Global Spacing",
+    "fields": [
+        {
+            "key": "field_66d8a4eb7b084",
+            "label": "Padding Top",
+            "name": "padding_top",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "unset": "Default",
+                "st-none": "None",
+                "st-xxs": "XXS",
+                "st-xs": "XS",
+                "st-sm": "SM",
+                "st-md": "MD",
+                "st-lg": "LG",
+                "st-xl": "XL",
+                "st-xxl": "XXL"
+            },
+            "default_value": "unset",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "layout": "horizontal"
+        },
+        {
+            "key": "field_66d8a5a2bfa04",
+            "label": "Padding Bottom",
+            "name": "padding_bottom",
+            "aria-label": "",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "unset": "Default",
+                "sb-none": "None",
+                "sb-xxs": "XXS",
+                "sb-xs": "XS",
+                "sb-sm": "SM",
+                "sb-md": "MD",
+                "sb-lg": "LG",
+                "sb-xl": "XL",
+                "sb-xxl": "XXL"
+            },
+            "default_value": "unset",
+            "return_format": "value",
+            "allow_null": 0,
+            "allow_in_bindings": 1,
+            "layout": "horizontal"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/hero-homepage"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": false,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1763465056
+}

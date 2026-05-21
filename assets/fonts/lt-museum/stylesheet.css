@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'LT Museum';
+    src: url('LTMuseum-Bold.eot');
+    src: url('LTMuseum-Bold.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-Bold.woff2') format('woff2'),
+        url('LTMuseum-Bold.woff') format('woff'),
+        url('LTMuseum-Bold.ttf') format('truetype'),
+        url('LTMuseum-Bold.svg#LTMuseum-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum';
+    src: url('LTMuseum-BoldItalic.eot');
+    src: url('LTMuseum-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-BoldItalic.woff2') format('woff2'),
+        url('LTMuseum-BoldItalic.woff') format('woff'),
+        url('LTMuseum-BoldItalic.ttf') format('truetype'),
+        url('LTMuseum-BoldItalic.svg#LTMuseum-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum';
+    src: url('LTMuseum-Light.eot');
+    src: url('LTMuseum-Light.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-Light.woff2') format('woff2'),
+        url('LTMuseum-Light.woff') format('woff'),
+        url('LTMuseum-Light.ttf') format('truetype'),
+        url('LTMuseum-Light.svg#LTMuseum-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum';
+    src: url('LTMuseum-LightItalic.eot');
+    src: url('LTMuseum-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-LightItalic.woff2') format('woff2'),
+        url('LTMuseum-LightItalic.woff') format('woff'),
+        url('LTMuseum-LightItalic.ttf') format('truetype'),
+        url('LTMuseum-LightItalic.svg#LTMuseum-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum Med';
+    src: url('LTMuseum-Medium.eot');
+    src: url('LTMuseum-Medium.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-Medium.woff2') format('woff2'),
+        url('LTMuseum-Medium.woff') format('woff'),
+        url('LTMuseum-Medium.ttf') format('truetype'),
+        url('LTMuseum-Medium.svg#LTMuseum-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum';
+    src: url('LTMuseum-Black.eot');
+    src: url('LTMuseum-Black.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-Black.woff2') format('woff2'),
+        url('LTMuseum-Black.woff') format('woff'),
+        url('LTMuseum-Black.ttf') format('truetype'),
+        url('LTMuseum-Black.svg#LTMuseum-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum Med';
+    src: url('LTMuseum-MediumItalic.eot');
+    src: url('LTMuseum-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-MediumItalic.woff2') format('woff2'),
+        url('LTMuseum-MediumItalic.woff') format('woff'),
+        url('LTMuseum-MediumItalic.ttf') format('truetype'),
+        url('LTMuseum-MediumItalic.svg#LTMuseum-MediumItalic') format('svg');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LT Museum';
+    src: url('LTMuseum-BlackItalic.eot');
+    src: url('LTMuseum-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('LTMuseum-BlackItalic.woff2') format('woff2'),
+        url('LTMuseum-BlackItalic.woff') format('woff'),
+        url('LTMuseum-BlackItalic.ttf') format('truetype'),
+        url('LTMuseum-BlackItalic.svg#LTMuseum-BlackItalic') format('svg');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+

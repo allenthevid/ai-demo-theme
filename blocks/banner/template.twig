@@ -1,0 +1,57 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+{% set bg_class = fields.background_color ? 'bg-white' : '' %}
+{% set text_class = fields.background_color ? 'text-secondary' : 'text-white' %}
+{% set position = fields.position ? fields.position : 'text-center' %}
+{% set gradient_bg = fields.background_color ? '' : 'style="background: linear-gradient(180deg, #031E36 0%, #010F1B 50%, #000000 100%);"' %}
+
+<section class="transition-opacity duration-500 {{ block.slug }} z-[30] relative pt-[133px] lg:pt-[160px]" {{ gradient_bg|raw }} x-data="{shown:true}" x-intersect:enter.half="shown = true" x-intersect:leave.half="shown = false" :class="shown ? 'opacity-100':'opacity-0'">
+    {% if block.anchor %}
+        <div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+    {% endif %}
+
+    <div class="container relative z-30">
+        <div class="">
+            <div class="content-wrapper {{ position }} {{ position == 'text-center' ? 'mx-auto' : (position == 'text-right' ? 'ml-auto' : '') }}">
+                {# Heading #}
+                {% if fields.heading %}
+                    {% include 'components/heading.twig' with {
+                        'class': 'main-title mb-[40px] ' ~ text_class,
+                        'value': fields.heading.value, 
+                        'type': fields.heading.type != "default" ? fields.heading.type : "h1",
+                        'has_custom_style': fields.heading.has_custom_style,
+                        'style': fields.heading.style,
+                    } %}
+                {% endif %}
+
+                {# Description #}
+                {% if fields.paragraph %}
+                    <div class="description {{ text_class }} [&_p]:text-medium leading-[135%] max-w-[1100px]  {{ position == 'text-center' ? 'mx-auto' : (position == 'text-right' ? 'ml-auto' : '') }}">
+                        {{ fields.paragraph|raw }}
+                    </div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+    <div class="container-fluid px-[30px] md:px-0">
+        {# Full Width Image or Video #}
+        {% if fields.enable_video and fields.video %}
+            <div class="full-width-video-wrapper mt-[90px]">
+                <video class="w-full h-auto object-cover lg:h-[600px]" autoplay muted loop playsinline>
+                    <source src="{{ fields.video.url }}" type="{{ fields.video.mime_type }}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% elseif fields.image %}
+            <div class="full-width-image-wrapper mt-[90px]">
+                {% include 'components/image.twig' with {
+                    'image': fields.image,
+                    'class': "w-full h-auto object-cover lg:h-[600px]",
+                    'size': [1440, 600],
+                } %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endcache %}

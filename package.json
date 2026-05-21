@@ -1,0 +1,23 @@
+{
+	"devDependencies": {
+		"autoprefixer": "latest",
+		"fluid-tailwind": "latest",
+		"postcss": "latest",
+		"postcss-import": "latest",
+		"postcss-import-ext-glob": "latest",
+		"postcss-nested": "latest",
+		"postcss-nesting": "latest",
+		"tailwindcss": "3.4.17"
+	},
+	"scripts": {
+		"tw": "tailwindcss -i assets/css/theme/tailwind.css -o assets/css/theme/bf.css --postcss --watch --poll --minify",
+		"build": "tailwindcss -i assets/css/theme/tailwind.css -o assets/css/theme/styles.css --postcss --minify",
+		"create-block": "node create-block.js",
+		"cb": "node create-block.js",
+		"f2b": "node figma-to-block.js",
+		"f2b:list": "node figma-to-block.js --list"
+	},
+	"dependencies": {
+		"fs-extra": "^11.3.0"
+	}
+}

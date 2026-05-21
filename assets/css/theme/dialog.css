@@ -1,0 +1,57 @@
+@layer base {
+    dialog {
+        animation: dialogFadeOut 0.5s alternate-reverse;
+    
+        &[open] {
+            animation: dialogFadeIn 0.5s forwards;
+    
+            &::backdrop {
+                animation: backdropFadeIn 0.5s forwards;
+            }
+        }
+    
+        &::backdrop {
+            animation: backdropFadeOut 0.5s forwards;
+        }
+    }
+}
+
+@keyframes dialogFadeIn {
+	from {
+		transform: translateY(2.5rem);
+	}
+
+	to {
+		transform: translateY(0%);
+	}
+}
+
+@keyframes dialogFadeOut {
+	from {
+		transform: translateY(0%);
+	}
+
+	to {
+		transform: translateY(2.5rem);
+	}
+}
+
+@keyframes backdropFadeIn {
+	from {
+		background: hsl(0 0% 0% / 0%);
+	}
+
+	to {
+		background: rgb(0 0 0 / 25%);
+	}
+}
+
+@keyframes backdropFadeOut {
+	from {
+		background: rgb(0 0 0 / 25%);
+	}
+
+	to {
+		background: hsl(0 0% 0% / 0%);
+	}
+}

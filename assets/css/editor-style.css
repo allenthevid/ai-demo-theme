@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+/* Editor canvas styling — scoped to .editor-styles-wrapper (block editor) */
+.editor-styles-wrapper {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Make blocks full-width in the editor */
+.editor-styles-wrapper .block-editor-block-list__layout.is-root-container {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.editor-styles-wrapper .wp-block {
+    max-width: none;
+}
+
+.editor-styles-wrapper .wp-block[data-align="full"] {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.editor-styles-wrapper h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 60px;
+    line-height: 85.2%;
+    letter-spacing: -0.05em;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper h2 {
+    font-family: "Inter", sans-serif;
+    font-size: 30px;
+    line-height: 112%;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper h3 {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 113%;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper h4 {
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 98.9%;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper h5 {
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 98.9%;
+    letter-spacing: -0.05em;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper h6 {
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 98.9%;
+    letter-spacing: -0.05em;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper p {
+    font-family: "Inter", sans-serif;
+    line-height: 135%;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper b,
+.editor-styles-wrapper strong {
+    font-weight: bold;
+}
+
+.editor-styles-wrapper ul {
+    list-style-type: disc;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper ul li {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 192%;
+    letter-spacing: -0.02em;
+}
+
+.editor-styles-wrapper ol {
+    list-style-type: decimal;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+.editor-styles-wrapper a {
+    color: #F15928;
+    text-decoration: underline;
+}
+
+.editor-styles-wrapper blockquote {
+    margin: 40px 0;
+    padding: 30px 40px;
+    border-left: 4px solid #F15928;
+    background-color: #F3EEDD;
+    border-radius: 8px;
+}
+
+.editor-styles-wrapper blockquote p {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    color: #082640;
+    margin-bottom: 16px;
+}
+
+.editor-styles-wrapper blockquote cite {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: rgba(8, 38, 64, 0.7);
+    font-style: normal;
+    margin-top: 16px;
+    display: block;
+}
+
+.editor-styles-wrapper .text-large,
+.editor-styles-wrapper p.large {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 98.9%;
+    letter-spacing: -0.05em;
+}
+
+.editor-styles-wrapper .text-medium,
+.editor-styles-wrapper p.medium {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 135%;
+    letter-spacing: -0.05em;
+}
+
+.editor-styles-wrapper .text-small,
+.editor-styles-wrapper p.small {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 166%;
+    letter-spacing: -0.02em;
+}
+
+/* Override editor default font for blocks to match frontend */
+.editor-styles-wrapper .wp-block {
+    font-family: "Inter", sans-serif;
+}
+
+.editor-styles-wrapper .wp-block-heading h1,
+.editor-styles-wrapper .wp-block-heading h2,
+.editor-styles-wrapper .wp-block-heading h3,
+.editor-styles-wrapper .wp-block-heading h4,
+.editor-styles-wrapper .wp-block-heading h5,
+.editor-styles-wrapper .wp-block-heading h6 {
+    font-family: inherit;
+}

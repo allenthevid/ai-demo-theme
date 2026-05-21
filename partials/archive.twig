@@ -1,0 +1,139 @@
+<section class="post-list archive-page {{ bg_class }} pt-[123px] lg:pt-[207px] pb-[30px] relative" data-bg-color="{{ background_color }}">
+    <div class="container relative z-30">
+        {# Header #}
+        <div class="header-section mb-[30px] lg:mb-[46px]">
+            {% if fields.heading %}
+                {% include 'components/heading.twig' with {
+                    'class': 'main-title mb-[20px] ' ~ text_class,
+                    'value': fields.heading.value, 
+                    'type': fields.heading.type != "default" ? fields.heading.type : "h1",
+                    'has_custom_style': fields.heading.has_custom_style,
+                    'style': fields.heading.style,
+                } %}
+            {% else %}
+                <h1 class="main-title mb-[20px] {{ text_class }} text-[40px] lg:text-[60px] font-bold">
+                    {{ archive_title|raw|striptags }}
+                </h1>
+            {% endif %}
+            
+            {% if fields.paragraph %}
+                <div class="description max-w-[323px] {{ text_class }} [&_p]:text-medium leading-[135%]">
+                    {{ fields.paragraph|raw }}
+                </div>
+            {% elseif archive_description %}
+                <div class="description max-w-[323px] {{ text_class }} [&_p]:text-medium leading-[135%]">
+                    {{ archive_description|raw }}
+                </div>
+            {% endif %}
+        </div>
+
+        {# Category Tabs and Filter #}
+        <div class="controls-wrapper flex flex-col md:flex-row justify-between items-start md:items-center gap-[17px] lg:gap-[26px] mb-[32px]">
+            {# Category Tabs #}
+            <div class="category-tabs flex gap-[20px] lg:gap-[40px] overflow-x-auto pb-[10px]" role="tablist">
+                <a href="{{ site.url }}/blog" class="tab-btn active border-b-2 border-tertiary font-lt-museum font-[300] {{ text_class }} text-[20px] md:text-[30px] pb-[10px] transition-colors whitespace-nowrap no-underline hover:text-tertiary">
+                    All
+                </a>
+                {% for cat in categories %}
+                    <a href="{{ cat.link }}" class="tab-btn font-lt-museum font-[300] {{ text_class }} text-[20px] md:text-[30px] pb-[10px] transition-colors whitespace-nowrap no-underline hover:text-tertiary">
+                        {{ cat.name }}
+                    </a>
+                {% endfor %}
+            </div>
+
+            {# Filter Dropdown #}
+            <div class="filter-wrapper flex items-center gap-[12px]">
+                <span class="{{ text_class }} text-[14px] font-[600]">Filter</span>
+
+                <div class="sort-buttons flex items-center gap-[8px]">
+                    <button class="sort-btn sort-desc {{ text_class }} w-[40px] h-[40px] rounded-full flex items-center justify-center transition-colors group active" data-order="desc" aria-pressed="true">
+                        <svg width="31" height="39" viewBox="0 0 31 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="30" height="38" rx="15" stroke="currentColor"/>
+                            <path d="M10.9426 23.71L11.9986 22.632L13.8906 24.546L14.8146 25.646L14.8806 25.624L14.7486 23.49V12.644H16.2446V23.49L16.1126 25.624L16.1786 25.646L17.1026 24.546L18.9946 22.632L20.0506 23.71L15.4966 28.264L10.9426 23.71Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <button class="sort-btn sort-asc {{ text_class }} w-[40px] h-[40px] rounded-full flex items-center justify-center transition-colors group" data-order="asc" aria-pressed="false">
+                        <svg width="31" height="39" viewBox="0 0 31 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0.5" y="0.5" width="30" height="38" rx="15" stroke="currentColor"/>
+                            <path d="M20.074 16.934L19.018 18.012L17.126 16.098L16.202 14.998L16.136 15.02L16.268 17.154V28H14.772V17.154L14.904 15.02L14.838 14.998L13.914 16.098L12.022 18.012L10.966 16.934L15.52 12.38L20.074 16.934Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {# Posts Grid #}
+        <div class="posts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[30px] mb-[60px]">
+            {% for post in posts %}
+                {% include 'components/post-card.twig' with { 'post': post, 'text_class': text_class } %}
+            {% endfor %}
+        </div>
+        
+        {# Pagination #}
+        <div class="pagination-container flex items-center justify-center gap-[12px]">
+            {% include 'components/ajax-pagination.twig' with { 'pagination': pagination, 'text_class': text_class } %}
+        </div>
+    </div>
+</section>
+{# Image Content CTA from Global Category Settings #}
+{% if global_category_settings %}
+    {% set cta_fields = global_category_settings %}
+    {% set cta_bg_class = cta_fields.background_color ? 'bg-white' : 'bg-dark' %}
+    {% set cta_text_class = cta_fields.background_color ? 'text-secondary' : 'text-white' %}
+
+    <section class="image-content-cta relative overflow-hidden {{ cta_bg_class }}">
+        {# Floating Image Background #}
+        {% if cta_fields.floating_image %}
+            <div class="absolute left-0 right-0 bottom-[-50%] w-full h-full z-0 pointer-events-none">
+                {% set floating_img = Image(cta_fields.floating_image) %}
+                <img src="{{ floating_img.src }}" alt="{{ floating_img.alt }}" class="w-full h-full object-fill">
+            </div>
+        {% endif %}
+
+        <div class="container relative z-30">
+            <div class="pt-[153px] pb-[204px] lg:pt-[121px] lg:pb-[237px]">
+                <div class="content-wrapper max-w-[800px] mx-auto text-center">
+                    {# Image in Content #}
+                    {% set display_image = cta_fields.background_color and cta_fields.image_white ? cta_fields.image_white : cta_fields.image %}
+                    {% if display_image %}
+                        <div class="image-wrapper mb-[32px] flex justify-center">
+                            {% include 'components/image.twig' with {
+                                'image': display_image,
+                                'class': "max-w-[200px] lg:max-w-[231px] w-full h-auto object-contain",
+                                'size': [300, 300],
+                            } %}
+                        </div>
+                    {% endif %}
+
+                    {# Heading #}
+                    {% if cta_fields.heading %}
+                        {% include 'components/heading.twig' with {
+                            'class': 'main-title ' ~ cta_text_class ~ ' mb-[20px]',
+                            'value': cta_fields.heading.value, 
+                            'type': cta_fields.heading.type != "default" ? cta_fields.heading.type : "h2",
+                            'has_custom_style': cta_fields.heading.has_custom_style,
+                            'style': cta_fields.heading.style,
+                        } %}
+                    {% endif %}
+
+                    {# Description #}
+                    {% if cta_fields.paragraph %}
+                        <div class="description {{ cta_text_class }} text-medium mb-[47px] leading-[135%]">
+                            {{ cta_fields.paragraph }}
+                        </div>
+                    {% endif %}
+
+                    {# CTA #}
+                    {% if cta_fields.cta %}
+                        {% set cta_style = cta_fields.bg ? 'btn-' ~ cta_fields.bg : 'btn-tertiary' %}
+                        {% include 'components/cta.twig' with {
+                            'class': cta_style,
+                            'cta': cta_fields.cta, 
+                            'icon': false,
+                        } %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

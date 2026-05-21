@@ -1,0 +1,18 @@
+<lottie-player src="{{ lottie_file }}" background="transparent" class="lottie-player {{ class }}" speed="1" direction="1" playmode="normal" {% if loop %} loop {% endif %} autoplay id="{{ id }}-lottie"></lottie-player>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    let lottiePlayer = document.getElementById("{{ id }}-lottie");
+    lottiePlayer.addEventListener("ready", () => {
+      LottieInteractivity.create({
+        player: "#{{ id }}-lottie",
+        mode: "scroll",
+        actions: [
+        {
+          visibility: [0.5,1],
+          type: "play",
+        },
+        ],
+      });
+    });
+  });
+</script>

@@ -1,0 +1,46 @@
+{% cache 'hero-section-' ~ block.id %}
+{% set heading = fields.heading ?? 'Get More Done with whitepace' %}
+{% set description = fields.description ?? 'Project management software that enables your teams to collaborate, plan, analyze and manage everyday tasks' %}
+{% set button_label = fields.button_label ?? 'Try Whitepace free' %}
+{% set button_link = fields.button_link %}
+{% set content_image = TimberImage(fields.content_image) %}
+{% set background_image = TimberImage(fields.background_image) %}
+{% set decorative_image = TimberImage(fields.decorative_image) %}
+
+<section class="relative overflow-hidden bg-[#043873]" style="{% if background_image %}background-image: url('{{ background_image.src }}'); background-size: cover; background-position: center;{% endif %}">
+    {% if decorative_image %}
+    <div class="absolute inset-0 z-[1] pointer-events-none">
+        <img src="{{ decorative_image.src }}" alt="" class="w-full h-full object-cover" />
+    </div>
+    {% endif %}
+    
+    <div class="container relative z-10 mx-auto py-[140px]">
+        <div class="flex flex-col lg:flex-row items-center gap-[60px]">
+            <div class="w-full lg:w-1/2 flex flex-col gap-[24px]">
+                <h1 class="text-white font-inter font-bold text-[64px] leading-[77px] tracking-[-1.28px] max-w-[656px]">
+                    {{ heading }}
+                </h1>
+                <p class="text-white font-inter font-normal text-[18px] leading-[30px] tracking-[-0.36px] max-w-[656px]">
+                    {{ description }}
+                </p>
+                {% if button_link %}
+                <a href="{{ button_link.url }}" class="no-underline inline-flex items-center justify-center gap-[10px] px-[20px] py-[20px] bg-[#4F9CF9] text-white font-inter font-medium text-[18px] leading-[23px] tracking-[-0.36px] rounded-[25px] w-[219px] h-[63px] hover:opacity-90 transition-opacity">
+                    {{ button_label }}
+                </a>
+                {% else %}
+                <button class="inline-flex items-center justify-center gap-[10px] px-[20px] py-[20px] bg-[#4F9CF9] text-white font-inter font-medium text-[18px] leading-[23px] tracking-[-0.36px] rounded-[25px] w-[219px] h-[63px] hover:opacity-90 transition-opacity">
+                    {{ button_label }}
+                </button>
+                {% endif %}
+            </div>
+            <div class="w-full lg:w-1/2">
+                {% if content_image %}
+                <img src="{{ content_image.src }}" alt="{{ content_image.alt }}" class="w-full h-auto" />
+                {% else %}
+                <div class="bg-[#C4DEFD] w-full" style="aspect-ratio: 824/549;"></div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endcache %}

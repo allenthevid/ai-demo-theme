@@ -1,0 +1,176 @@
+[x-cloak] {
+  @apply hidden;
+}
+@layer base {
+	
+	::selection {
+		@apply text-black bg-green;
+	}
+
+	.hide-scrollbar {
+		*::-webkit-scrollbar {
+			display: none; /* Safari and Chrome */
+		}
+
+		* {
+			-ms-overflow-style: none; /* Internet Explorer 10+ */
+			scrollbar-width: none; /* Firefox */
+		}
+	}
+
+	section {
+		
+	}
+
+	.section-anchor {
+		@apply absolute top-[-3.75rem] left-0 h-[0.0625rem] w-full;
+	}
+
+    input {
+        @apply !rounded-none;
+    }
+
+	.bg-gradient-blue {
+		background: #031e36;
+		background: linear-gradient(
+		180deg,
+		rgba(3, 30, 54, 1) 0%,
+		rgba(1, 15, 27, 1) 50%,
+		rgba(0, 0, 0, 1) 100%
+		);
+	}
+}
+
+@layer components {
+	.container {
+		@apply ~px-[1.5rem]/[2rem] max-w-[1342px]  mx-auto;
+	}
+
+	.alpha {
+		@apply opacity-0 invisible;
+	}
+
+	.outer-word,
+	.outer-char {
+		clip-path: polygon(0% 0%, 0% 120%, 110% 120%, 110% 0%);
+	}
+
+	.inner-char,
+	.inner-word {
+		@apply inline-block translate-y-[120%] translate-z-0 will-change-transform;
+	}
+
+	.form-wrapper .nf-form-title, .form-wrapper .nf-before-form-content {
+		@apply hidden;
+	}
+
+	.form-wrapper .nf-form-content .nf-field-label {
+		/* @apply hidden; */
+	}
+	.form-wrapper .nf-field-element input[type="text"],
+	.form-wrapper .nf-field-element input[type="email"], .form-wrapper .nf-field-element select  {
+		@apply py-[12.5px] px-[21px] border border-[#00000040] !rounded-[25px] bg-white text-[18px] text-[#082640] font-ibm-plex-sans;
+	}
+	.form-wrapper .nf-field-element input[type="text"]::placeholder,
+	.form-wrapper .nf-field-element input[type="email"]::placeholder {	
+		@apply text-[#000000] opacity-20;
+	}
+	.form-wrapper .nf-field-element select {
+		@apply appearance-none pr-[48px];
+		background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5' stroke='%23082640' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 16px center;
+	}
+	.form-wrapper .nf-field-element select option {
+		@apply py-[16px] px-[24px] text-[18px] text-secondary bg-white font-ibm-plex-sans;
+	}
+	.form-wrapper .nf-field-element select option:first-child {
+		@apply !text-[#000000] opacity-20;
+	}
+	.form-wrapper .nf-field-element select option:checked,
+	.form-wrapper .nf-field-element select option:hover {
+		@apply bg-tertiary text-secondary font-ibm-plex-sans;
+	}
+	.form-wrapper .nf-field-element input[type="submit"] {
+		@apply font-ibm-plex-sans  cursor-pointer min-w-[148px] text-[16px] font-[500] leading-[26px] tracking-[-5%] py-[11px] px-[15px] 2xl:px-[33px] inline-block bg-transparent border border-secondary !rounded-[25px] text-secondary hover:bg-tertiary hover:text-white;
+	}
+	.nf-field-container {
+		@apply mb-[19px];
+	}
+	.form-wrapper .submit-container {
+		@apply mb-0 mt-[40px];
+	}
+	 
+	.form-wrapper .submit-container .nf-field-element {
+		@apply text-center;
+
+	}
+	.form-wrapper .nf-mp-footer .nf-next-previous li input {
+        @apply py-[11px] px-[15px] 2xl:px-[33px] leading-[26px] inline-block bg-transparent border border-secondary !rounded-[25px] text-secondary hover:bg-tertiary hover:text-white hover:border-tertiary cursor-pointer;
+	}
+	.form-wrapper .nf-mp-footer {
+		@apply flex flex-wrap justify-center;
+	}
+	.form-wrapper .nf-mp-footer .nf-next-previous {
+		@apply flex flex-wrap justify-center gap-[21px] !m-0;
+	}
+	.form-wrapper .submit-container {
+		@apply !m-0;
+	}
+	.form-wrapper .nf-mp-footer>div {
+		@apply flex justify-center gap-[30px] mb-[20px];
+	}
+	.form-wrapper .nf-form-content input[type="button"] {
+		@apply min-w-[148px];
+	}
+	.form-wrapper .nf-next-previous::after {
+		@apply hidden
+	}
+	.form-wrapper .nf-mp-header h3{
+		@apply absolute bottom-[30px] left-[50%] translate-x-[-50%] font-ibm-plex-sans font-medium !text-[14px] leading-[98.9%] tracking-[-5%] text-[#868686] opacity-60;
+	}
+	.form-wrapper input::placeholder,
+	.form-wrapper textarea::placeholder {
+		@apply !text-[#000000] opacity-20;
+	}
+	.form-wrapper textarea {
+		@apply py-[12.5px] px-[21px] !h-[89px] border border-[#00000040] !rounded-[25px] bg-white text-[18px] text-[#082640] font-ibm-plex-sans;
+	}
+	.form-wrapper .list-radio-wrap ul li{
+		display: flex;
+	}
+	.form-wrapper .list-radio-wrap ul li label {
+		margin-left: 0;
+		text-align: left;
+	}
+	.form-wrapper input[type="radio"]:checked {
+		@apply bg-tertiary;
+		accent-color: #F15928;
+	}
+	.form-wrapper input[type="radio"] {
+		@apply cursor-pointer;
+		accent-color: #F15928;
+	}
+	.form-wrapper .nf-field-label {
+		@apply text-left text-[14px];
+	}
+	.form-wrapper .html-container .nf-field-label {
+		@apply !block;
+	}
+	.form-wrapper .html-container {
+		@apply mb-0;
+	}
+	.form-wrapper .list-radio-wrap {
+		@apply py-[12.5px] px-[21px] border border-[#00000040] !rounded-[25px] bg-white text-[18px] text-[#082640] font-ibm-plex-sans;
+	}
+}
+
+@keyframes loading {
+	0% {
+		background-position: 100% 0;
+	}
+
+	100% {
+		background-position: -100% 0;
+	}
+}
