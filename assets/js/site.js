@@ -2,28 +2,30 @@ const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const mobileMenuClose = document.getElementById('mobile-menu-close');
 const mobileMenu = document.getElementById('mobile-menu');
 
-// Toggle mobile menu on hamburger click
-mobileMenuToggle.addEventListener('click', function() {
-    mobileMenu.classList.toggle('hidden');
-    document.body.style.overflow = mobileMenu.classList.contains('hidden') ? 'auto' : 'hidden';
-    this.setAttribute('aria-expanded', mobileMenu.classList.contains('hidden') ? 'false' : 'true');
-});
+if (mobileMenuToggle && mobileMenuClose && mobileMenu) {
+    // Toggle mobile menu on hamburger click
+    mobileMenuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+        document.body.style.overflow = mobileMenu.classList.contains('hidden') ? 'auto' : 'hidden';
+        this.setAttribute('aria-expanded', mobileMenu.classList.contains('hidden') ? 'false' : 'true');
+    });
 
-// Close mobile menu on close button click
-mobileMenuClose.addEventListener('click', function() {
-    mobileMenu.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-});
-
-// Close mobile menu when a link is clicked
-const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', function() {
+    // Close mobile menu on close button click
+    mobileMenuClose.addEventListener('click', function() {
         mobileMenu.classList.add('hidden');
         document.body.style.overflow = 'auto';
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
     });
-});
+
+    // Close mobile menu when a link is clicked
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+    });
+}
 
 // Mobile submenu toggle
 document.querySelectorAll('.mobile-menu-toggle').forEach(button => {
